@@ -1,10 +1,22 @@
 import {Text, TouchableOpacity, FlatList} from 'react-native';
-import React from 'react';
-import resData from '../resource/resource';
+import React, {useEffect, useState} from 'react';
+import {fetchQuestionList} from '../api/api';
 
 export default function Home({navigation}: {navigation: any}) {
+  useEffect(() => {
+    getQuestionList();
+  }, []);
+
+  const getQuestionList = async () => {
+    const data = await fetchQuestionList();
+    console.log('data', data);
+    setQuestionData(data);
+  };
+
+  const [getQuestionData, setQuestionData] = useState([]);
+
   const renderItem = (item: any) => {
-    const {title, content} = item.item;
+    const {name, download_url} = item.item;
     return (
       <TouchableOpacity
         style={{
@@ -18,18 +30,18 @@ export default function Home({navigation}: {navigation: any}) {
         onPress={() =>
           navigation.push('MarkdownView', {
             itemId: 86,
-            title: title,
-            data: content,
+            title: name,
+            data: download_url,
           })
         }>
-        <Text>{title}</Text>
+        <Text>{name?.split('.md')[0]}</Text>
       </TouchableOpacity>
     );
   };
   return (
     <FlatList
       style={{backgroundColor: 'white'}}
-      data={resData}
+      data={getQuestionData}
       keyExtractor={(item, index) => index.toString()}
       renderItem={renderItem}
     />

@@ -1,6 +1,7 @@
 import {Text, TouchableOpacity, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {fetchQuestionList} from '../api/api';
+import {styles} from './Home.styles';
 
 export default function Home({navigation}: {navigation: any}) {
   useEffect(() => {
@@ -19,17 +20,9 @@ export default function Home({navigation}: {navigation: any}) {
     const {name, download_url} = item.item;
     return (
       <TouchableOpacity
-        style={{
-          marginVertical: 5,
-          marginHorizontal: 5,
-          padding: 10,
-          borderRadius: 8,
-          borderWidth: 2,
-          borderColor: '#f0f4f5',
-        }}
+        style={styles.listRoot}
         onPress={() =>
           navigation.push('MarkdownView', {
-            itemId: 86,
             title: name,
             data: download_url,
           })
@@ -40,7 +33,7 @@ export default function Home({navigation}: {navigation: any}) {
   };
   return (
     <FlatList
-      style={{backgroundColor: 'white'}}
+      style={styles.flatListStyle}
       data={getQuestionData}
       keyExtractor={(item, index) => index.toString()}
       renderItem={renderItem}

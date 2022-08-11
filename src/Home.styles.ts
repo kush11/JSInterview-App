@@ -12,4 +12,9 @@ export const styles = StyleSheet.create({
   flatListStyle: {
     backgroundColor: 'white',
   },
+  emptySearch: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

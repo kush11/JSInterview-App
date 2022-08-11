@@ -6,10 +6,10 @@ export const fetchQuestionList = async (): Promise<any> => {
     const BASE_URL =
       'https://api.github.com/repos/kush11/JSInterviewGuide/contents/JSInterview';
     const data = await axios.get(`${BASE_URL}`, {
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        Authorization: `token ${accessToken}`,
-      },
+      // headers: {
+      //   Accept: 'application/json, text/plain, */*',
+      //   Authorization: `token ${accessToken}`,
+      // },
     });
     return data.data;
   } catch (e) {
@@ -24,12 +24,12 @@ export const fetchQuestionResource = async (
     const BASE_URL = 'https://raw.githubusercontent.com';
     const data = await axios.get(
       `${BASE_URL}/kush11/JSInterviewGuide/master/JSInterview/${questionPath}`,
-      {
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          Authorization: `token ${accessToken}`,
-        },
-      },
+      // {
+      //   headers: {
+      //     Accept: 'application/json, text/plain, */*',
+      //     // Authorization: `token ${accessToken}`,
+      //   },
+      // },
     );
     return data.data;
   } catch (e) {

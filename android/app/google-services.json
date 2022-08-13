@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "800115439118",
+    "project_id": "javascriptinverviewquestion",
+    "storage_bucket": "javascriptinverviewquestion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800115439118:android:d97c693c34d07c4009ae5f",
+        "android_client_info": {
+          "package_name": "com.javascriptinverviewquestion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800115439118-ki44qfbmqs8op72h1o1v889sjnj0rv74.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1Wm_QhDo2idulv_37X-MWAAe0onzcWwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800115439118-ki44qfbmqs8op72h1o1v889sjnj0rv74.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

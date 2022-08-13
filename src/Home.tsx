@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {fetchQuestionList} from '../api/api';
 import {styles} from './Home.styles';
 import Search from './Component/Search';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export default function Home({navigation}: {navigation: any}) {
   useEffect(() => {
@@ -27,18 +28,20 @@ export default function Home({navigation}: {navigation: any}) {
             data: download_url,
           })
         }>
-        <Text>{name?.split('.md')[0]}</Text>
+        <Text style={{color: '#000000'}}>{name?.split('.md')[0]}</Text>
       </TouchableOpacity>
     );
   };
   return (
-    <React.Fragment>
+    <SafeAreaView style={styles.root}>
       <Search value={inputValue} onChangeNumber={onTextInput} />
       <FlatList
         style={styles.flatListStyle}
-        data={getQuestionData.filter((item: any) => {
-          return item.name.toLowerCase().match(inputValue);
-        })}
+        data={
+          getQuestionData.filter((item: any) => {
+            return item.name.toLowerCase().match(inputValue.toLowerCase());
+          }) || []
+        }
         ListEmptyComponent={
           <View style={styles.emptySearch}>
             <Text>No Result Found</Text>
@@ -46,7 +49,8 @@ export default function Home({navigation}: {navigation: any}) {
         }
         keyExtractor={(item, index) => index.toString()}
         renderItem={renderItem}
+        contentContainerStyle={styles.flatListCOntainerStyle}
       />
-    </React.Fragment>
+    </SafeAreaView>
   );
 }

@@ -12,6 +12,7 @@ const Search: React.FC<SearchProps> = ({
       style={styles.input}
       onChangeText={onChangeNumber}
       value={value}
+      placeholderTextColor={'#9e9e9e'}
       placeholder="Search"
       keyboardType="default"
     />

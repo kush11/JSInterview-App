@@ -24,7 +24,7 @@ export default function Home({navigation}: {navigation: any}) {
         style={styles.listRoot}
         onPress={() =>
           navigation.push('MarkdownView', {
-            title: name,
+            title: name?.split('.md')[0] || '',
             data: download_url,
           })
         }>

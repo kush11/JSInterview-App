@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     borderColor: '#DAE2E6',
-    color: '#000000'
+    color: '#000000',
+    marginTop: 16,
   },
 });

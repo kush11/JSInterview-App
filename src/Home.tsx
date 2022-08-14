@@ -1,37 +1,73 @@
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {fetchQuestionList} from '../api/api';
 import {styles} from './Home.styles';
-import Search from './Component/Search';
+import Search from './Component/Search/Search';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  getLocalStorageData,
+  storeInterviewQuestionData,
+} from './util/localStorage';
+import {localStorageKeyType} from './util/types';
+import ListItem from './Component/ListItem/ListItem';
 
 export default function Home({navigation}: {navigation: any}) {
   useEffect(() => {
     getQuestionList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getQuestionList = async () => {
-    const data = await fetchQuestionList();
-    setQuestionData(data);
+    try {
+      const data = await fetchQuestionList();
+      const localStorageData = await getLocalData();
+      if (data.length === localStorageData.length) {
+        setQuestionData(localStorageData);
+      } else {
+        const newData = data.map((item: any) => {
+          return {...item, isBookmarked: false};
+        });
+        setQuestionData(newData);
+        storeInterviewQuestionData(newData);
+      }
+    } catch (error) {
+      const localStorageData = await getLocalData();
+      storeInterviewQuestionData(localStorageData || []);
+    }
   };
   const [getQuestionData, setQuestionData] = useState([]);
   const [inputValue, onTextInput] = React.useState('');
 
+  const getLocalData = async () => {
+    const data = await getLocalStorageData(
+      localStorageKeyType.questionBookMarkedData,
+    );
+    return data;
+  };
+
+  const markBookmark = (item: any) => {
+    const newData: any = [...getQuestionData];
+    const index = newData.findIndex((i: any) => i.name === item.name);
+    newData[index].isBookmarked = !newData[index].isBookmarked;
+    setQuestionData(newData);
+    storeInterviewQuestionData(newData);
+  };
+
   const renderItem = (item: any) => {
-    const {name, download_url} = item.item;
     return (
-      <TouchableOpacity
-        style={styles.listRoot}
-        onPress={() =>
+      <ListItem
+        item={item}
+        listClick={(itemClick: any) => {
           navigation.push('MarkdownView', {
-            title: name?.split('.md')[0] || '',
-            data: download_url,
-          })
-        }>
-        <Text style={{color: '#000000'}}>{name?.split('.md')[0]}</Text>
-      </TouchableOpacity>
+            title: itemClick.name?.split('.md')[0] || '',
+            data: itemClick.download_url,
+          });
+        }}
+        bookMarkClick={(itemBookMarked: any) => markBookmark(itemBookMarked)}
+      />
     );
   };
+
   return (
     <SafeAreaView style={styles.root}>
       <Search value={inputValue} onChangeNumber={onTextInput} />

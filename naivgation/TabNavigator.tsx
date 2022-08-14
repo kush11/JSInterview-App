@@ -1,9 +1,8 @@
 import React from 'react';
-import {Text} from 'react-native';
 import type {Route} from '@react-navigation/routers';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BookmarkScreen from '../src/Bookmark/Bookmark';
 import StackNavigation from './navigation';
 
@@ -15,8 +14,8 @@ const TabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: {backgroundColor: '#AD40AF'},
-        tabBarInactiveTintColor: '#fff',
+        // tabBarStyle: {backgroundColor: 'gray'},
+        tabBarInactiveTintColor: '#8e8e93',
         tabBarActiveTintColor: '#fff',
         tabBarActiveBackgroundColor: '#AD4',
       }}>
@@ -26,9 +25,11 @@ const TabNavigator = () => {
         options={({route}) => ({
           tabBarStyle: {
             display: getTabBarVisibility(route),
-            backgroundColor: '#AD40AF',
+            backgroundColor: 'gray',
           },
-          tabBarIcon: ({color, size}) => <Text>kus</Text>,
+          tabBarIcon: ({color, size}) => (
+            <Icon name="bookmark" size={size || 30} color={color} />
+          ),
         })}
       />
       <Tab.Screen
@@ -37,7 +38,9 @@ const TabNavigator = () => {
         options={{
           tabBarBadge: 3,
           tabBarBadgeStyle: {backgroundColor: 'yellow'},
-          tabBarIcon: ({color, size}) => <Text>kusa</Text>,
+          tabBarIcon: ({color, size}) => (
+            <Icon name="bookmark" size={size || 30} color={color} />
+          ),
         }}
       />
       {/* <Tab.Screen
@@ -54,7 +57,7 @@ const TabNavigator = () => {
 const getTabBarVisibility = (route: Partial<Route<string>>) => {
   // console.log(route);
   const routeName = getFocusedRouteNameFromRoute(route) ?? 'Dashboard';
-//   console.log('routeName', routeName);
+  //   console.log('routeName', routeName);
 
   if (routeName === 'MarkdownView') {
     return 'none';

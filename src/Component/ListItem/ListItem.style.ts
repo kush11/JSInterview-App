@@ -1,11 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  root: {
-    backgroundColor: 'white',
-    display: 'flex',
-    flex: 1,
-  },
   listRoot: {
     marginVertical: 5,
     marginHorizontal: 5,
@@ -18,15 +13,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  flatListStyle: {
-    backgroundColor: 'white',
+  listContainer: {
+    flex: 8,
   },
-  emptySearch: {
-    display: 'flex',
-    justifyContent: 'center',
+  listContainerText: {
+    color: '#000000',
+  },
+  bookmarkContainer: {
+    flex: 1,
     alignItems: 'center',
-  },
-  flatListCOntainerStyle: {
-    paddingBottom: 80,
   },
 });

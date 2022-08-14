@@ -2,7 +2,7 @@ import {ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import RenderMarlDown from 'react-native-markdown-display';
 import {fetchQuestionResource} from '../../api/api';
-import {styles} from './MarkdownView.styles';
+import {styles, markdownCustomStyle} from './MarkdownView.styles';
 
 export default function MarkdownView({
   navigation,
@@ -21,7 +21,7 @@ export default function MarkdownView({
   }, []);
 
   const getQuestionList = async () => {
-    const data = await fetchQuestionResource(title);
+    const data = await fetchQuestionResource(`${title}.md`);
     console.log('data', data);
     setQuestionData(data);
   };
@@ -33,7 +33,9 @@ export default function MarkdownView({
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.root}>
       {/* <Text>{title}</Text> */}
-      <RenderMarlDown>{getQuestionData}</RenderMarlDown>
+      <RenderMarlDown style={markdownCustomStyle}>
+        {getQuestionData}
+      </RenderMarlDown>
     </ScrollView>
   );
 }

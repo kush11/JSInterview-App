@@ -21,6 +21,8 @@ target 'JavaScriptInverviewQuestion' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
+  pod 'react-native-in-app-review', :path => '../node_modules/react-native-in-app-review'
+
   target 'JavaScriptInverviewQuestionTests' do
     inherit! :complete
     # Pods for testing

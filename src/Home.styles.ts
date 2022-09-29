@@ -29,4 +29,20 @@ export const styles = StyleSheet.create({
   flatListCOntainerStyle: {
     paddingBottom: 80,
   },
+  MainContainer: {flex: 1},
+  CartExampleTxt: {
+    fontSize: 16,
+    color: '#006E52',
+    fontWeight: 'bold',
+    margin: 15,
+  },
+  RateMeBtn: {
+    backgroundColor: '#6E0052',
+    alignSelf: 'center',
+    padding: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  RateMeTxt: {color: '#fff', fontWeight: 'bold', fontSize: 15},
+  containerBtn: {justifyContent: 'center', flex: 1},
 });

@@ -1,4 +1,4 @@
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {fetchQuestionList} from '../api/api';
 import {styles} from './Home.styles';
@@ -10,8 +10,17 @@ import {
 } from './util/localStorage';
 import {localStorageKeyType} from './util/types';
 import ListItem from './Component/ListItem/ListItem';
+import InAppReview from 'react-native-in-app-review';
+import useAppReview from './util/inAppReview';
 
 export default function Home({navigation}: {navigation: any}) {
+  const [getQuestionData, setQuestionData] = useState([]);
+  const [inputValue, onTextInput] = React.useState('');
+
+  InAppReview.isAvailable();
+
+  console.log('InAppReview.isAvailable()', InAppReview.isAvailable());
+  const {onReview} = useAppReview();
   useEffect(() => {
     getQuestionList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -21,10 +30,10 @@ export default function Home({navigation}: {navigation: any}) {
     try {
       const data = await fetchQuestionList();
       const localStorageData = await getLocalData();
-      if (data.length === localStorageData.length) {
+      if (data?.length === localStorageData?.length) {
         setQuestionData(localStorageData);
       } else {
-        const newData = data.map((item: any) => {
+        const newData = data?.map((item: any) => {
           return {...item, isBookmarked: false};
         });
         setQuestionData(newData);
@@ -35,8 +44,6 @@ export default function Home({navigation}: {navigation: any}) {
       storeInterviewQuestionData(localStorageData || []);
     }
   };
-  const [getQuestionData, setQuestionData] = useState([]);
-  const [inputValue, onTextInput] = React.useState('');
 
   const getLocalData = async () => {
     const data = await getLocalStorageData(
@@ -58,6 +65,7 @@ export default function Home({navigation}: {navigation: any}) {
       <ListItem
         item={item}
         listClick={(itemClick: any) => {
+          onReview();
           navigation.push('MarkdownView', {
             title: itemClick.name?.split('.md')[0] || '',
             data: itemClick.download_url,
